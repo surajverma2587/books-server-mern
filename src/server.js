@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const router = require("./routes");
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 4000;
 const DB_URI = process.env.MONGODB_URI || "mongodb://localhost/books";
 
 const mongooseOptions = {
