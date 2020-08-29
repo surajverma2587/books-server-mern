@@ -15,4 +15,10 @@ router.get("/books/:id", async (req, res) => {
   res.json(books);
 });
 
+router.post("/books", async (req, res) => {
+  const book = req.body;
+  const newBook = await db.Book.create({ ...book, date: new Date() });
+  res.status(201).json(newBook);
+});
+
 module.exports = router;
