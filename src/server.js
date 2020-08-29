@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const db = require("./models");
+const router = require("./routes");
 
 const PORT = process.env.PORT || 8000;
 const DB_URI = process.env.MONGODB_URI || "mongodb://localhost/books";
@@ -24,13 +24,9 @@ app.use(
   })
 );
 app.use(cors());
+app.use("/api", router);
 
 mongoose.connect(DB_URI, mongooseOptions);
-
-app.get("/books", async (req, res) => {
-  const books = await db.Book.find({}).catch((err) => console.log(err));
-  res.json(books);
-});
 
 app.listen(PORT, () => {
   console.log(`Server listening on: http://localhost:${PORT}`);
