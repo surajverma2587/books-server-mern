@@ -21,6 +21,19 @@ router.post("/books", async (req, res) => {
   res.status(201).json(newBook);
 });
 
+router.put("/books/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const data = await db.Book.findByIdAndUpdate(id, body, { new: true });
+
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 router.delete("/books/:id", async (req, res) => {
   try {
     const { id } = req.params;
