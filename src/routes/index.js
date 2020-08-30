@@ -21,4 +21,16 @@ router.post("/books", async (req, res) => {
   res.status(201).json(newBook);
 });
 
+router.delete("/books/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteBook = await db.Book.findByIdAndDelete(id);
+
+    res.status(200).json({ success: true, data: deleteBook });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 module.exports = router;
