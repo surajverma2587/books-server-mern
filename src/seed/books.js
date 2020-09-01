@@ -1,17 +1,4 @@
-const mongoose = require("mongoose");
-const db = require("../models");
-
-const DB_URI = process.env.MONGODB_URI || "mongodb://localhost/books";
-
-const mongooseOptions = {
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useNewUrlParser: true,
-};
-
-mongoose.connect(DB_URI, mongooseOptions);
-
-const bookSeed = [
+const books = [
   {
     title: "The Dead Zone",
     author: "Stephen King",
@@ -126,13 +113,4 @@ const bookSeed = [
   },
 ];
 
-db.Book.deleteMany({})
-  .then(() => db.Book.collection.insertMany(bookSeed))
-  .then((data) => {
-    console.log(data.result.n + " records inserted!");
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+module.exports = books;

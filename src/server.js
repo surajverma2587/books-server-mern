@@ -3,20 +3,11 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const { DB_URI, MONGOOSE_OPTIONS, PORT } = require("./config");
 const router = require("./routes");
-
-const PORT = process.env.PORT || 4000;
-const DB_URI = process.env.MONGODB_URI || "mongodb://localhost/books";
-
-const mongooseOptions = {
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useNewUrlParser: true,
-};
 
 const app = express();
 
-// Middleware
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -26,7 +17,7 @@ app.use(
 app.use(cors());
 app.use("/api", router);
 
-mongoose.connect(DB_URI, mongooseOptions);
+mongoose.connect(DB_URI, MONGOOSE_OPTIONS);
 
 app.listen(PORT, () => {
   console.log(`Server listening on: http://localhost:${PORT}`);
