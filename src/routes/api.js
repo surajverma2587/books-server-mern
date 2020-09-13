@@ -5,7 +5,10 @@ const db = require("../models");
 const router = express.Router();
 
 router.get("/books", async (req, res) => {
-  const books = await db.Book.find({}).catch((err) => console.log(err));
+  const { id } = req.user;
+  const books = await db.Book.find({
+    userId: id,
+  }).catch((err) => console.log(err));
   res.json(books);
 });
 
